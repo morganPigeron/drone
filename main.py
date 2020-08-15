@@ -32,3 +32,4 @@ if __name__ == "__main__":
     print("connecting to MQTT server ....")
     client.connect("192.168.1.38", 1883, 60)
     print("connected")
+    client.loop_forever()
