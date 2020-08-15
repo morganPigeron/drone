@@ -4,32 +4,11 @@
     <meta charset="utf-8">
     <title>Main Panel</title>
     <link rel="stylesheet" href="static/style.css">
-    <script src="static/script.js"></script>
+    <script src="{{ url_for('static', filename = 'script.js') }}"></script>
   </head>
   <body>
     <button onclick="up()">up</button>
     <button onclick="down()">down</button> 
     <button onclick="stop()">stop</button> 
-    <script>
-      var client = new HttpClient();
-
-      function up() {
-        var client = new HttpClient();
-        client.get('http://127.0.0.1/api?command=1&speed=10&track=44', function(response) {});
-        client.get('http://127.0.0.1/api?command=1&speed=10&track=45', function(response) {});
-      }
-
-      function down() {
-        var client = new HttpClient();
-        client.get('http://127.0.0.1/api?command=2&speed=10&track=44', function(response) {});
-        client.get('http://127.0.0.1/api?command=2&speed=10&track=45', function(response) {});
-      }
-
-      function stop() {
-        var client = new HttpClient();
-        client.get('http://127.0.0.1/api?command=0&speed=10&track=44', function(response) {});
-        client.get('http://127.0.0.1/api?command=0&speed=10&track=45', function(response) {});
-      }
-    </script>
   </body>
 </html>
