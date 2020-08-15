@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import smbus
+import json
 
 bus = smbus.SMBus(0)
 
@@ -9,26 +10,29 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("/drone")
+    client.subscribe("drone")
     print("subscribed to drone")
 
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
 
-    if msg.topic == "drone":
-        print("topic drone : ")
-        print(msg.payload)
-        direction = msg.payload.direction
-        speed = msg.payload.speed
-        track = msg.payload.track
-        print(direction)
-        print(speed)
-        print(track)
-        try:
-            bus.write_i2c_block_data(int(track), 0x01,[int(direction),int(speed)])
-        except :
-            print("ERREUR ENVOI I2C")
-        print("---END---")
+    
+    print("topic drone : ")
+
+    payload = json.loads(msg.payload)
+    print(payload)
+    direction = payload['direction']
+    speed = payload['speed']
+    track = payload['track']
+
+    print(direction)
+    print(speed)
+    print(track)
+    try:
+        bus.write_i2c_block_data(int(track), 0x01,[int(direction),int(speed)])
+    except :
+        print("ERREUR ENVOI I2C")
+    print("---END---")
 
 
 
