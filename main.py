@@ -9,7 +9,7 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("drone")
+    client.subscribe("/drone")
     print("subscribed to drone")
 
 def on_message(client, userdata, msg):
@@ -34,7 +34,7 @@ def on_message(client, userdata, msg):
 
 if __name__ == "__main__":
 
-    client = mqtt.Client()
+    client = mqtt.Client("orangePi")
     client.on_connect = on_connect
     client.on_message = on_message
     print("connecting to MQTT server ....")
