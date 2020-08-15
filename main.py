@@ -15,12 +15,13 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
 
     if msg.topic == "drone":
-
+        print("topic drone : ")
+        print(msg.payload)
         direction = msg.payload.direction
         speed = msg.payload.speed
         track = msg.payload.track
-
         bus.write_i2c_block_data(int(track), 0x01,[int(direction),int(speed)])
+        print("---END---")
 
 
 
