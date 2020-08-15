@@ -20,7 +20,13 @@ def on_message(client, userdata, msg):
         direction = msg.payload.direction
         speed = msg.payload.speed
         track = msg.payload.track
-        bus.write_i2c_block_data(int(track), 0x01,[int(direction),int(speed)])
+        print(direction)
+        print(speed)
+        print(track)
+        try:
+            bus.write_i2c_block_data(int(track), 0x01,[int(direction),int(speed)])
+        except :
+            print("ERREUR ENVOI I2C")
         print("---END---")
 
 
