@@ -9,7 +9,8 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("$SYS/#")
+    client.subscribe("drone")
+    print("subscribed to drone")
 
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
@@ -39,6 +40,4 @@ if __name__ == "__main__":
     print("connecting to MQTT server ....")
     client.connect("192.168.1.38", 1883, 60)
     print("connected")
-    client.subscribe("drone")
-    print("subscribed to drone")
     client.loop_forever()
