@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import smbus
 
 bus = smbus.SMBus(0)
 
