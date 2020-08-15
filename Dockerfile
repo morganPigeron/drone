@@ -2,4 +2,4 @@ FROM python:3-onbuild
 ADD . /code
 WORKDIR /code
 RUN pip install -r requirements.txt
-CMD sudo python main.py
+CMD python main.py
