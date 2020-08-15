@@ -1,27 +1,32 @@
-from flask import Flask, request, render_template
-import smbus
-
-app = Flask(__name__)
+import paho.mqtt.client as mqtt
 
 bus = smbus.SMBus(0)
 
-@app.route("/")
-def root():
-    return render_template("index.html")
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
 
-#api 
-@app.route("/api", methods = ['GET', 'POST'])
-def command():
-    if request.method == 'GET':
-        #"sudo i2ctransfer 0 w3@0x2c 0x01 0x00 50"
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe("$SYS/#")
 
-        direction = request.args['command']
-        speed = request.args['speed']
-        track = request.args['track']
+def on_message(client, userdata, msg):
+    print(msg.topic+" "+str(msg.payload))
+
+    if msg.topic == "drone":
+
+        direction = msg.payload.direction
+        speed = msg.payload.speed
+        track = msg.payload.track
 
         bus.write_i2c_block_data(int(track), 0x01,[int(direction),int(speed)])
 
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000", debug=True)
+
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+
+    client.connect("192.168.1.38", 1883, 60)

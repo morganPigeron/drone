@@ -1,2 +1,2 @@
-flask
 smbus
+paho-mqtt
