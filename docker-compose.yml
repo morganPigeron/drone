@@ -3,8 +3,5 @@ services:
     mainserver:
         restart: always
         build: .
-        ports:
-            - "80:5000"
-
         devices:
             - "/dev/i2c-0:/dev/i2c-0"
