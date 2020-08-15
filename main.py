@@ -29,5 +29,6 @@ if __name__ == "__main__":
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-
+    print("connecting to MQTT server ....")
     client.connect("192.168.1.38", 1883, 60)
+    print("connected")
