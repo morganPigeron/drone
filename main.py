@@ -3,7 +3,7 @@ import smbus
 
 app = Flask(__name__)
 
-bus = smbus.SMBus(1)
+bus = smbus.SMBus(0)
 
 @app.route("/")
 def root():
