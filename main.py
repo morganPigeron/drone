@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import smbus
 
 app = Flask(__name__)
@@ -7,7 +7,7 @@ bus = smbus.SMBus(0)
 
 @app.route("/")
 def root():
-    return "wip"
+    return render_template("index.html")
 
 #api 
 @app.route("/api", methods = ['GET', 'POST'])
